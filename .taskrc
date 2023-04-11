@@ -1,0 +1,271 @@
+# [Created by task 2.6.2 6/10/2022 08:12:22]
+# Taskwarrior program configuration file.
+# For more documentation, see https://taskwarrior.org or try 'man task', 'man task-color',
+# 'man task-sync' or 'man taskrc'
+
+# Here is an example of entries that use the default, override and blank values
+#   variable=foo   -- By specifying a value, this overrides the default
+#   variable=      -- By specifying no value, this means no default
+#   #variable=foo  -- By commenting out the line, or deleting it, this uses the default
+
+# You can also refence environment variables:
+#   variable=$HOME/task
+#   variable=$VALUE
+
+# Use the command 'task show' to see all defaults and overrides
+
+# Files
+data.location=/Users/bj00173ml/.task
+# data.location=/Users/bj00173ml/.task_tt
+# data.location=/Users/bj00173ml/.task_tt2
+# data.location=/Users/bj00173ml/.task_3
+
+# To use the default location of the XDG directories,
+# move this configuration file from ~/.taskrc to ~/.config/task/taskrc and uncomment below
+
+#data.location=~/.local/share/task
+#hooks.location=~/.config/task/hooks
+
+# Color theme (uncomment one to use)
+#include light-16.theme
+#include light-256.theme
+#include dark-16.theme
+#include dark-256.theme
+#include dark-red-256.theme
+#include dark-green-256.theme
+#include dark-blue-256.theme
+#include dark-violets-256.theme
+#include dark-yellow-green.theme
+#include dark-gray-256.theme
+#include dark-gray-blue-256.theme
+#include solarized-dark-256.theme
+#include solarized-light-256.theme
+#include no-color.theme
+
+news.version=2.6.0
+search.case.sensitive=no
+uda.title.type=string
+uda.title.label=tit
+uda.summary.type=string
+uda.summary.label=sum
+uda.keyword.type=string
+uda.keyword.label=keyword
+uda.estimate.type=duration
+uda.estimate.label=est
+uda.actual.type=duration
+uda.actual.label=act
+uda.jira.type=string
+uda.jira.label=jir
+uda.mindmap.type=string
+uda.mindmap.label=mind
+uda.mindmap.indicator=*
+uda.testplan.type=string
+uda.testplan.label=testplan
+uda.testplan.indicator=*
+uda.pipeline.type=string
+uda.pipeline.label=pipe
+uda.pipeline.indicator=*
+uda.application.type=string
+uda.application.label=app
+uda.markdown.type=string
+uda.markdown.label=doc
+uda.markdown.indicator=*
+uda.doclink.type=string
+uda.doclink.label=doc
+uda.doclink.indicator=*
+# uda.key.type=string
+# uda.key.label=key
+uda.kickoff.type=date
+uda.kickoff.label=kick
+uda.testnet.type=date
+uda.testnet.label=testnet
+uda.tid.type=numeric
+uda.tid.label=tid
+uda.note.type=string
+uda.note.label=not
+uda.link.type=string
+uda.link.label=lin
+uda.owner.type=string
+uda.owner.label=own
+uda.owner.indicator=3
+uda.cooperator.type=string
+uda.cooperator.label=coop
+uda.cooperator.indicator=1
+# use for auto delete task
+uda.imaskmod.type=numeric
+uda.imaskmod.label=imaskmod
+uda.imaskremainder.type=numeric
+uda.imaskremainder.label=imaskremainder
+
+# uda.bugs.type=string
+# uda.bugs.label=bugs
+
+uda.bugslink.type=string
+uda.bugslink.label=bugs
+
+uda.repeat.type=string
+uda.repeat.label=rep
+uda.repeat.indicator=x
+
+
+# 复盘link,文档在uid基础上加7
+uda.retrospective.type=string
+uda.retrospective.label=retro
+
+# urgency.uda.estimate.coefficient=3
+# urgency.testnet.coefficient=5.0
+
+urgency.user.tag.next.coefficient=15.0
+urgency.due.coefficient=12.0
+urgency.blocking.coefficient=8.0
+urgency.scheduled.coefficient=5.0
+urgency.active.coefficient=4.0
+urgency.age.coefficient=2.0
+urgency.annotations.coefficient=1.0
+urgency.tags.coefficient=1.0
+urgency.project.coefficient=1.0
+urgency.user.project.MyProject.coefficient=5.0
+urgency.waiting.coefficient=-3.0
+urgency.blocked.coefficient=-5.0
+
+uda.plevel.label=plevel
+uda.plevel.type=string
+uda.plevel.values=P-1,P0,P1,P2,P3
+color.uda.plevel.P-1=color255
+color.uda.plevel.P0=color255
+color.uda.plevel.P1=color245
+color.uda.plevel.P2=color250
+color.uda.plevel.P3=color250
+urgency.uda.plevel.P-1.coefficient=9.0
+urgency.uda.plevel.P0.coefficient=6.0
+urgency.uda.plevel.P1.coefficient=3.9
+urgency.uda.plevel.P2.coefficient=1.8
+urgency.uda.plevel.P3.coefficient=0.5
+
+uda.priority.label=Priority
+uda.priority.type=string
+# uda.priority.values=H,M,L,
+uda.priority.values=S,H,M,L
+uda.priority.default=L
+color.uda.priority.S=color255
+color.uda.priority.H=color255
+color.uda.priority.L=color245
+color.uda.priority.M=color250
+urgency.uda.priority.S.coefficient=9.0
+urgency.uda.priority.H.coefficient=6.0
+urgency.uda.priority.L.coefficient=1.8
+urgency.uda.priority.M.coefficient=3.9
+
+
+uda.roi.label=Roi
+uda.roi.type=string
+# uda.roi.values=H,M,L,
+uda.roi.values=S,H,M,L
+urgency.uda.roi.S.coefficient=9.0
+urgency.uda.roi.H.coefficient=6.0
+urgency.uda.roi.L.coefficient=1.8
+urgency.uda.roi.M.coefficient=3.9
+
+dateformat=m.d
+# default.command=list
+default.command=minimal
+
+report.minimal.sort=urgency-,due-,start-,project+
+# report.minimal.filter=status:pending +ACTIVE -WAITING -BLOCKED -OVERDUE
+report.minimal.columns=repeat.indicator,id,summary,depends,plevel,project,jira,wait.remaining,scheduled,testnet,due,until,owner.indicator,cooperator.indicator,mindmap.indicator,pipeline.indicator,doclink.indicator,description
+report.minimal.labels=R,ID,summary,Deps,P,Project,jira,Wait,提测,预发,主网,Until,Own,C,M,P,D,Description
+report.minimal.dateformat=m-d
+
+report.ls.sort=urgency-,due+,scheduled+,start-,project+
+report.ls.columns=repeat.indicator,id,summary,depends,plevel,project,jira,wait.remaining,kickoff,scheduled,testnet,due,until,owner.indicator,cooperator.indicator,mindmap.indicator,testplan.indicator,pipeline.indicator,doclink.indicator,description
+report.ls.labels=R,ID,summary,Deps,P,Project,jira,Wait,启动,提测,预发,主网,Until,Own,C,M,T,P,D,Description
+report.ls.dateformat=m-d
+
+report.ready.sort=urgency-,due-,start-,project+
+report.ready.columns=id,summary,depends,project,jira,wait.remaining,kickoff,scheduled,testnet,due,owner.indicator,until,mindmap.indicator,pipeline.indicator,doclink.indicator,description
+report.ready.labels=ID,summary,Deps,Project,jira,Wait,启动,提测,预发,主网,Own,Until,M,P,D,Description
+report.ready.dateformat=m-d
+
+# rc.report.next.filter=status:pending,+UNBLOCKED 
+# report.next.sort=status-,start-,priority-,project+,due+
+# report.next.sort=urgency-,due-,start-,project+
+report.next.sort=due+,scheduled+,start+,project+
+report.next.columns=id,plevel,summary,depends,project,jira,wait.remaining,scheduled,testnet,due,owner.indicator,until,mindmap.indicator,pipeline.indicator,doclink.indicator,description
+report.next.labels=ID,P,summary,Deps,Project,jira,Wait,提测,预发,主网,Own,Until,M,P,D,Description
+report.next.dateformat=m-d
+
+# report.oldest.sort=urgency-,due-,start-,project+
+report.oldest.columns=id,tid,summary,depends,project,jira,wait.remaining,scheduled,testnet,due,owner.indicator,until,mindmap.indicator,pipeline.indicator,doclink.indicator,description
+report.oldest.labels=ID,T,summary,Deps,Project,jira,Wait,提测,预发,主网,Own,Until,M,P,D,Description
+report.oldest.dateformat=m-d
+
+# report.newest.sort=urgency-,due-,start-,project+
+report.newest.columns=id,plevel,summary,depends,project,jira,wait.remaining,scheduled,testnet,due,owner.indicator,until,mindmap.indicator,pipeline.indicator,doclink.indicator,description
+report.newest.labels=ID,P,summary,Deps,Project,jira,Wait,提测,预发,主网,Own,Until,M,P,D,Description
+report.newest.dateformat=m-d
+
+report.list.sort=urgency-,due-,start-,project+
+report.list.columns=id,summary,tid,depends,plevel,roi,project,jira,estimate,actual,wait.remaining,scheduled,testnet,due,until,owner.indicator,mindmap.indicator,pipeline.indicator,doclink.indicator,description
+report.list.labels=ID,summary,T,Deps,P,OI,Project,jira,Est,Act,Wait,提测,预发,主网,Until,own,M,P,D,Description
+report.list.dateformat=m-d.a
+
+report.long.sort=urgency-,due-,start-,project+
+report.long.columns=id,uuid.short,summary,tid,depends,priority,plevel,project,jira,estimate,actual,wait.remaining,scheduled,testnet,due,until,owner,mindmap.indicator,pipeline.indicator,doclink.indicator,description
+report.long.labels=ID,UUID,summary,T,Deps,P,P,Project,jira,Est,Act,Wait,Sched,Testnet,Due,Until,owner,M,P,D,Description
+report.long.dateformat=m-d.a
+
+report.all.sort=urgency-,due-,start-,project+
+report.all.columns=id,uuid.short,summary,depends,project,jira,wait.remaining,scheduled,testnet,due,until,mindmap.indicator,pipeline.indicator,doclink.indicator,description
+report.all.labels=ID,UUID,summary,Deps,Project,jira,Wait,提测,预发,主网,Until,M,P,D,Description
+report.all.dateformat=m-d
+
+report.completed.sort=urgency-,due-,start-,project+
+report.completed.columns=uuid.short,summary,tid,depends,priority,project,estimate,actual,wait.remaining,scheduled,testnet,due,until,mindmap.indicator,pipeline.indicator,doclink.indicator,description,urgency
+report.completed.labels=UUID,summary,T,Deps,P,Project,Est,Act,Wait,Sched,Testnet,Due,Until,M,P,D,Description,Urg
+report.completed.dateformat=m-d.a
+
+
+
+
+# active - Started tasks
+# all - Pending, completed and deleted tasks
+# blocked - Tasks that are blocked by other tasks
+# blocking - Tasks that block other tasks
+# completed - Tasks that have been completed
+# list - Pending tasks
+# long - Pending tasks, long form
+# ls - Pending tasks, short form
+# minimal - Pending tasks, minimal form
+# newest - Most recent pending tasks
+# next - Most urgent tasks
+# oldest - Oldest pending tasks
+# overdue - Overdue tasks
+# ready - Pending, unblocked, scheduled tasks
+# recurring - Pending recurring tasks
+# unblocked - Tasks that are not blocked
+# waiting - Hidden, waiting tasks
+recurrence.limit=1
+context.work.read=+wk or +tl
+context.study.read=+sch or +hw or +lab
+uda.reviewed.type=date
+uda.reviewed.label=Reviewed
+
+report._reviewed.description=Tasksh review report.  Adjust the filter to your needs.
+report._reviewed.columns=uuid
+report._reviewed.sort=reviewed+,modified+
+report._reviewed.filter=( reviewed.none: or reviewed.before:now-6days ) and ( +PENDING or +WAITING )
+
+
+report.table.sort=urgency-,due-
+report.table.filter=status:pending
+report.table.columns=description,plevel,jira,estimate,actual,owner,scheduled,testnet,due
+report.table.labels=任务,级别,jira,工作量,完成工作量,负责人,提测,预发,主网
+report.table.dateformat=m-d.a
+# report.table.durationformat=PnD
+
+# report.simple.description=Simple list of open tasks by project
+report.simple.columns=id,project,description.count
+report.simple.labels=ID,Proj,Desc
+report.simple.sort=project+\/,entry+
+report.simple.filter=status:pending
+context.live.read=+ln or +tv or +sp
