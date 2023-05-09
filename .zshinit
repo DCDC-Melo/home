@@ -1,0 +1,25 @@
+# encrypt
+gpg --recipient C24754849B10AB07 --armor --output ${tmpFile}.gpg --encrypt ${tmpFile::=~/.zshrc}
+# decrypt
+gpg --output ${rmFile::=$(mktemp)} --decrypt ${tmpFile}.gpg ; rm -i $rmFile
+
+# init zsh
+gpg --list-keys
+
+curl https://raw.githubusercontent.com/DCDC-Melo/home/main/.dc.private.key.gpg | tee ${tmpFile::=$(mktemp)} ; 
+gpg --import $tmpFile ;
+
+curl https://raw.githubusercontent.com/DCDC-Melo/home/main/.zshenv.sh.gpg | tee ${gpgFile::=$(mktemp)} ; 
+gpg --output ${rmFile::=$(mktemp)} --decrypt ${gpgFile} ;  source $rmFile ; rm -i $rmFile
+
+curl https://raw.githubusercontent.com/DCDC-Melo/home/main/.zshfun.sh.gpg | tee ${gpgFile::=$(mktemp)} ; 
+gpg --output ${rmFile::=$(mktemp)} --decrypt ${gpgFile} ;  source $rmFile ; rm -i $rmFile
+
+curl https://raw.githubusercontent.com/DCDC-Melo/home/main/.zshsc.sh.gpg  | tee ${tmpFile::=$(mktemp)} ;
+gpg --output ${rmFile::=$(mktemp)} --decrypt ${gpgFile} ;  source $rmFile ; rm -i $rmFile
+
+curl https://raw.githubusercontent.com/DCDC-Melo/home/main/.zshhi.sh.gpg  | tee ${tmpFile::=$(mktemp)} ;
+gpg --output ${rmFile::=$(mktemp)} --decrypt ${gpgFile} ;  fc -R $rmFile  ; rm -i $rmFile
+
+curl https://raw.githubusercontent.com/DCDC-Melo/home/main/.zshhm.sh.gpg  | tee ${tmpFile::=$(mktemp)} ;
+gpg --output ${rmFile::=$(mktemp)} --decrypt ${gpgFile} ;  fc -R $rmFile  ; rm -i $rmFile
