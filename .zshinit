@@ -1,7 +1,22 @@
+# basic function
+alias zshinit='curl https://raw.githubusercontent.com/DCDC-Melo/home/main/.zshinit    | tee ${tmpFile::=~/.zshinit.sh} ;'
+alias mkfile='f() {mkdir -p "$(dirname "$1")" && touch "$1" ; }; f'
+function isgo { if [[ "$#" -gt "0" ]]; then export declare allPara="$@" ; export declare lastPara="$@[-1]" ; echo 'isgo: \033[0;32m'"${allPara}"'\033[0m' ; fi ; unset skipCommand ; vared -p 'Is go on ?: ' -c skipCommand ; export declare skipCommand ; }
+function isok { if [[ "$#" -gt "0" ]]; then export declare allPara="$@" ; export declare lastPara="$@[-1]" ; echo 'isgo: \033[0;36m'"${allPara}"'\033[0m' ; fi ; unset skipCommand ; vared -p 'Is ok on ?: ' -c skipCommand ; export declare skipCommand ; }
+# 保持路径信息
+DIRSTACKSIZE=20 ; DIRSTACKFILE="$HOME/.cache/reg/dirs" ; mkfile "$DIRSTACKFILE" # to make sure have this file
+if [[ -f $DIRSTACKFILE ]] && [[ $#dirstack -eq 0 ]]; then dirstack=( ${(f)"$(< $DIRSTACKFILE)"} ) ; [[ -d $dirstack[1] ]] && cd $dirstack[1] ; fi
+chpwd() { print -l $PWD ${(u)dirstack} >$DIRSTACKFILE }
+
+
+# import private key
+curl https://raw.githubusercontent.com/DCDC-Melo/home/main/.dc.private.key.gpg | tee ${tmpFile::=$(mktemp)} ; gpg --import $tmpFile ;
+# curl https://raw.githubusercontent.com/DCDC-Melo/home/main/.dc.public.key.gpg  | tee ${tmpFile::=$(mktemp)} ; gpg --import $tmpFile ;
+# gpg --import private.key
+# gpg --pinentry-mode loopback --import private.key ;
+
 # export key
 gpg --export-secret-keys --armor C24754849B10AB07 > .dc.gpg.private.key
-gpg --import private.key
-# gpg --pinentry-mode loopback --import private.key ;
 
 # start gpg
 gpgconf --kill gpg-agent ; systemctl --user stop gpg-agent ; systemctl --user start gpg-agent ;
@@ -15,18 +30,17 @@ gpg --list-public-keys
 
 # encrypt
 gpg --recipient C24754849B10AB07 --armor --output ${tmpFile::=~/.zshsc.sh}.gpg  --encrypt ${tmpFile} ;
+
 # decrypt
 gpg --output ${tmpFile::=.zshenv}  --decrypt ${tmpFile}.gpg ;
 gpg --output ${rmFile::=$(mktemp)} --decrypt ${tmpFile::=.zshenv}.gpg ; source ${rmFile} ; rm -i $rmFile
 
-# import private key
-curl https://raw.githubusercontent.com/DCDC-Melo/home/main/.dc.private.key.gpg | tee ${tmpFile::=$(mktemp)} ; gpg --import $tmpFile ;
-# curl https://raw.githubusercontent.com/DCDC-Melo/home/main/.dc.public.key.gpg  | tee ${tmpFile::=$(mktemp)} ; gpg --import $tmpFile ;
-
-function isgo { if [[ "$#" -gt "0" ]]; then export declare allPara="$@" ; export declare lastPara="$@[-1]" ; echo 'isgo: \033[0;32m'"${allPara}"'\033[0m' ; fi ; unset skipCommand ; vared -p 'Is go on ?: ' -c skipCommand ; export declare skipCommand ; }
+# env
 isgo zshenv         ; curl https://raw.githubusercontent.com/DCDC-Melo/home/main/.zshenv.gpg    | tee ${gpgFile::=$(mktemp)} ; gpg --output ${rmFile::=$(mktemp)} --decrypt ${gpgFile} ;  source $rmFile ; rm -i $rmFile
 isgo zshenv.sh      ; curl https://raw.githubusercontent.com/DCDC-Melo/home/main/.zshenv.sh.gpg | tee ${gpgFile::=$(mktemp)} ; gpg --output ${rmFile::=$(mktemp)} --decrypt ${gpgFile} ;  source $rmFile ; rm -i $rmFile
+# function
 isgo zshfun.sh      ; curl https://raw.githubusercontent.com/DCDC-Melo/home/main/.zshfun.sh.gpg | tee ${gpgFile::=$(mktemp)} ; gpg --output ${rmFile::=$(mktemp)} --decrypt ${gpgFile} ;  source $rmFile ; rm -i $rmFile
 isgo zshsc.sh       ; curl https://raw.githubusercontent.com/DCDC-Melo/home/main/.zshsc.sh.gpg  | tee ${tmpFile::=$(mktemp)} ; gpg --output ${rmFile::=$(mktemp)} --decrypt ${gpgFile} ;  source $rmFile ; rm -i $rmFile
+# command history
 isgo fc -R zshhi.sh ; curl https://raw.githubusercontent.com/DCDC-Melo/home/main/.zshhi.sh.gpg  | tee ${tmpFile::=$(mktemp)} ; gpg --output ${rmFile::=$(mktemp)} --decrypt ${gpgFile} ;  fc -R $rmFile  ; rm -i $rmFile
 isgo fc -R zshhm.sh ; curl https://raw.githubusercontent.com/DCDC-Melo/home/main/.zshhm.sh.gpg  | tee ${tmpFile::=$(mktemp)} ; gpg --output ${rmFile::=$(mktemp)} --decrypt ${gpgFile} ;  fc -R $rmFile  ; rm -i $rmFile
