@@ -13,6 +13,7 @@ gpg --list-public-keys
 gpg --recipient C24754849B10AB07 --armor --output ${tmpFile::=~/.zshsc.sh}.gpg  --encrypt ${tmpFile} ;
 git add ${tmpFile}.gpg
 # decrypt
+gpg --output ${tmpFile::=.zshenv}  --decrypt ${tmpFile}.gpg ;
 gpg --output ${rmFile::=$(mktemp)} --decrypt ${tmpFile}.gpg ; rm -i $rmFile
 
 # init zsh
