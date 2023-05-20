@@ -67,9 +67,9 @@ uda.pipeline.label=pipe
 uda.pipeline.indicator=*
 uda.application.type=string
 uda.application.label=app
-uda.markdown.type=string
-uda.markdown.label=doc
-uda.markdown.indicator=*
+# uda.markdown.type=string
+# uda.markdown.label=doc
+# uda.markdown.indicator=*
 uda.doclink.type=string
 uda.doclink.label=doc
 uda.doclink.indicator=*
@@ -195,8 +195,8 @@ report.next.labels=ID,P,summary,Deps,Project,jira,Wait,提测,预发,主网,Own,
 report.next.dateformat=m-d
 
 # report.oldest.sort=urgency-,due-,start-,project+
-report.oldest.columns=id,tid,summary,depends,project,jira,wait.remaining,scheduled,testnet,due,owner.indicator,until,mindmap.indicator,pipeline.indicator,doclink.indicator,description
-report.oldest.labels=ID,T,summary,Deps,Project,jira,Wait,提测,预发,主网,Own,Until,M,P,D,Description
+report.oldest.columns=id,tid,summary,depends,project,jira,wait.remaining,scheduled,testnet,due,owner.indicator,until,mindmap.indicator,testplan.indicator,pipeline.indicator,doclink.indicator,description
+report.oldest.labels=ID,T,summary,Deps,Project,jira,Wait,提测,预发,主网,Own,Until,M,T,P,D,Description
 report.oldest.dateformat=m-d
 
 # report.newest.sort=urgency-,due-,start-,project+
@@ -245,6 +245,7 @@ report.completed.dateformat=m-d.a
 # unblocked - Tasks that are not blocked
 # waiting - Hidden, waiting tasks
 recurrence.limit=1
+recurrence.confirmation=prompt
 context.work.read=+wk or +tl
 context.study.read=+sch or +hw or +lab
 uda.reviewed.type=date
