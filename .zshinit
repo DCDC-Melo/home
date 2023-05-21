@@ -39,6 +39,14 @@ isgo zshsc.sh       ; curl https://raw.githubusercontent.com/DCDC-Melo/home/main
 isgo fc -R zshhi.sh ; curl https://raw.githubusercontent.com/DCDC-Melo/home/main/.zshhi.sh.gpg  | tee ${tmpFile::=$(mktemp)} ; gpg --output ${rmFile::=$(mktemp)} --decrypt ${gpgFile} ;  fc -R $rmFile  ; rm -i $rmFile
 isgo fc -R zshhm.sh ; curl https://raw.githubusercontent.com/DCDC-Melo/home/main/.zshhm.sh.gpg  | tee ${tmpFile::=$(mktemp)} ; gpg --output ${rmFile::=$(mktemp)} --decrypt ${gpgFile} ;  fc -R $rmFile  ; rm -i $rmFile
 
-gopass init
-gopass setup --remote ssh://git@bitbucket.internal.instance.org/your-team/password-store --alias team-store
-gopass sync
+# initialise a standalone store in some throwaway directory
+mkdir $HOME/.gopass_store && gopass init --path $HOME/.gopass_store && cd $_
+# initialise a git repository, add remote origin and push
+git init && git add --all && git commit -m "store creation"
+git remote add origin git@github.com:name/repo.git && git push -u origin master
+# clone the store from the git repository as a mount
+gopass clone git@github.com:name/repo.git store-name
+# if successful, find the mounted store, add a secret & list your secrets
+gopass mounts
+echo "secret-value" | gopass insert store-name/first-secret
+gopass list store-name
