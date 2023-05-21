@@ -18,6 +18,12 @@ export EDITOR=/opt/4T/nvim/nvim-linux64/bin/nvim
 
 bindkey -M emacs "\C-p" history-beginning-search-backward
 bindkey -M emacs "\C-n" history-beginning-search-forward
+bindkey -M emacs '^J' save_and_accept
+zle -N   save_and_accept
+function save_and_accept { if test $(echo "$BUFFER" | wc -l) -gt 1 ; then eol=$'\n' ; echo "${BUFFER//$'\n'/\\$eol}" >> $HOME/.zshhm.sh; echo "\n" >> $HOME/.zshhm.sh ; else echo $BUFFER >> $HOME/.zshhi.sh ; fi ; zle accept-line; }
+bindkey -M emacs '\e\eai' append_to_install
+zle -N   append_to_install
+function append_to_install { BUFFER=${BUFFER//\'/\'\\\'\'}; BUFFER="echo '$BUFFER' >> \$HOME/.zshins.sh"; zle end-of-line; }
 
 # Reset
 export Color_Off='\033[0m'       # Text Reset
