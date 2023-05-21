@@ -1,0 +1,194 @@
+#!/bin/bash
+# mac
+chsh -s /bin/bash
+brew install gdb
+brew install llvm
+brew install macvim
+brew install coreutils
+brew reinstall python3
+brew install tac
+brew install cmake
+brew install wget
+brew instsll php
+brew install lftp
+brew install rar
+brew install p7zip
+brew install catimg
+brew install tree
+brew install mycli
+brew install cowsay
+brew install figlet
+brew install translate-shell
+brew install mysql
+brew install --cask typora
+brew install mycli
+brew install --cask sublime-text
+brew install pandoc
+brew install toilet
+brew install boxes
+brew install task
+brew install nmap
+brew install calc
+brew install pkg-config
+brew install jq
+brew install ack
+brew install eigen
+brew install rename
+brew install w3m
+brew install newsboat
+brew install mutt
+brew install telnet
+brew install --cask keepassxc
+brew install --cask xmind
+# depend on
+brew install bdw-gc; brew install openssl@1.1
+# ImageMagick depends on Ghostscript fonts. To install them, type:
+brew install ghostscript imagemagick 
+brew install ghostscript
+brew install --cask android-studio
+brew install --cask authy
+brew install oath-toolkit
+brew install fd
+brew install ripgrep
+brew install viu
+brew install yarn
+brew install cpanminus
+brew install --cask iterm2
+sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+brew install ccls
+brew install fzf
+brew install the_silver_searcher
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+nvim -u NORC
+# yarn
+npm install -g yarn
+mkdir /opt/4T/node/yarn/data
+yarn config set prefix "/opt/4T/node/yarn/data"
+mkdir /opt/4T/node/yarn/data/global
+yarn config  set global-folder "/opt/4T/node/yarn/data/global"
+mkdir /opt/4T/node/yarn/data/link
+yarn config  set link-folder "/opt/4T/node/yarn/data/link"
+mkdir /opt/4T/node/yarn/cache
+yarn config  set cache-folder "/opt/4T/node/yarn/cache"
+
+
+
+# ubuntu
+# system
+sudo apt install -y trash-cli
+# network
+sudo apt install -y openssh-server
+sudo apt install -y openssh-client
+sudo apt install -y net-tools
+sudo apt install -y rsync
+sudo apt-get install -y nmap
+# download
+sudo apt install -y git
+sudo apt install -y tig
+sudo apt install -y wget
+sudo apt install -y lftp
+sudo apt install -y rtorrent
+sudo apt install -y ctorrent
+sudo apt install -y transmission-cli
+# window
+sudo apt install -y tmux
+# tar
+sudo apt install -y unrar
+sudo apt install -y unzip
+sudo apt install -y p7zip
+sudo apt install -y p7zip-full
+# office editer
+sudo apt install -y vim
+sudo apt install xlsx2csv
+# statistics
+sudo apt install -y datamash
+sudo apt-get install -y lolcat
+
+sudo apt-get install sl # a train
+sudo apt install fortunes-min fortune-mod fortunes-zh
+sudo apt install -y cowsay
+sudo apt-get install -y figlet
+sudo apt-get install -y toilet
+sudo apt-get install -y boxes
+sudo apt install sysvbanner
+# file
+sudo apt install -y tree
+sudo apt install -y rename
+sudo apt install -y tofrodos
+# clipboard
+sudo apt install -y xsel 
+# image
+sudo apt install -y catimg
+sudo apt install -y translate-shell
+# sound
+sudo apt install -y espeak
+sudo apt install -y sox # music player
+sudo apt install -y libsox-fmt-all # music player format
+# serial
+sudo apt install -y minicom
+#database
+sudo apt install mycli
+sudo apt install mysql-server
+sudo  apt-get install  phpmyadmin
+
+
+
+# 其他终端工具
+sudo apt install ffmpeg
+sudo apt-get install imagemagick
+sudo apt-get install --no-install-recommends gnumeric # ssconvert
+brew install --cask freemind
+sudo spctl --master-disable # 禁止Gatekeeper可以运行mac软件
+brew install trash
+brew install redis
+brew install pandoc 
+brew install --cask --appdir=/Applications docker
+wget https://chromedriver.storage.googleapis.com/103.0.5060.53/chromedriver_mac64_m1.zip
+wget https://dl.google.com/android/repository/commandlinetools-mac-8512546_latest.zip
+wget https://dl.google.com/android/repository/platform-tools_r33.0.2-darwin.zip
+brew install --cask virtualbox 
+brew install privoxy
+brew  install  mitmproxy
+brew install --cask firefox
+brew install --cask snipaste
+brew install defaultbrowser
+brew install --cask xquartz
+brew install xdotool
+curl -L "https://raw.githubusercontent.com/sdushantha/tmpmail/master/tmpmail" > tmpmail && chmod +x tmpmail
+brew install grex
+brew install jpegoptim
+brew install optipng
+brew install mtr
+brew install pngquant
+brew install bash
+git restore package-lock.json
+brew install zbar
+brew install grpcui
+brew install grpcurl
+brew install fortune
+brew install calc
+brew install gifsicle
+brew install dateutils
+brew install ranger 
+brew install fzf
+brew install zenity
+brew install --cask drawio
+brew install tesseract 
+npm install --global csv2md
+brew install wiki
+npm i wikit -g
+brew install cointop
+brew install httpie
+brew install go-jira
+brew install lazygit
+python3 -m pip install numpy
+python3 -m pip install python-dateutil
+brew install gitmoji
+npm install --global emoj
+brew install pass
+brew install gopass
+brew install scrcpy
+brew install speedtest-cli
+npm install --location=global fast-cli
+brew install iperf
+npm install --global fast-cli
