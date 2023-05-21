@@ -2,7 +2,8 @@ chsh -s /bin/zsh
 sudo mkdir -p /opt/4T && sudo chown -R $(whoami) $_ ;
 
 # import private key
-curl https://raw.githubusercontent.com/DCDC-Melo/home/main/.dc.private.key.gpg | tee ${tmpFile::=$(mktemp)} ; gpg --import $tmpFile ;
+curl https://raw.githubusercontent.com/DCDC-Melo/home/main/.dc.gpg.private.key | tee ${tmpFile::=$(mktemp)} ; gpg --import $tmpFile ;
+# curl https://raw.githubusercontent.com/DCDC-Melo/home/main/.dc.private.key.gpg | tee ${tmpFile::=$(mktemp)} ; gpg --import $tmpFile ;
 # curl https://raw.githubusercontent.com/DCDC-Melo/home/main/.dc.public.key.gpg  | tee ${tmpFile::=$(mktemp)} ; gpg --import $tmpFile ;
 # gpg --import private.key
 # gpg --pinentry-mode loopback --import private.key ;
@@ -38,4 +39,6 @@ isgo zshsc.sh       ; curl https://raw.githubusercontent.com/DCDC-Melo/home/main
 isgo fc -R zshhi.sh ; curl https://raw.githubusercontent.com/DCDC-Melo/home/main/.zshhi.sh.gpg  | tee ${tmpFile::=$(mktemp)} ; gpg --output ${rmFile::=$(mktemp)} --decrypt ${gpgFile} ;  fc -R $rmFile  ; rm -i $rmFile
 isgo fc -R zshhm.sh ; curl https://raw.githubusercontent.com/DCDC-Melo/home/main/.zshhm.sh.gpg  | tee ${tmpFile::=$(mktemp)} ; gpg --output ${rmFile::=$(mktemp)} --decrypt ${gpgFile} ;  fc -R $rmFile  ; rm -i $rmFile
 
-
+gopass init
+gopass setup --remote ssh://git@bitbucket.internal.instance.org/your-team/password-store --alias team-store
+gopass sync

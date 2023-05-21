@@ -4,7 +4,7 @@ alias mkfile='f() {mkdir -p "$(dirname "$1")" && touch "$1" ; }; f'
 function isgo { if [[ "$#" -gt "0" ]]; then export declare allPara="$@" ; export declare lastPara="$@[-1]" ; echo 'isgo: \033[0;32m'"${allPara}"'\033[0m' ; fi ; unset skipCommand ; vared -p 'Is go on ?: ' -c skipCommand ; export declare skipCommand ; }
 function isok { if [[ "$#" -gt "0" ]]; then export declare allPara="$@" ; export declare lastPara="$@[-1]" ; echo 'isgo: \033[0;36m'"${allPara}"'\033[0m' ; fi ; unset skipCommand ; vared -p 'Is ok on ?: ' -c skipCommand ; export declare skipCommand ; }
 # 保持路径信息
-DIRSTACKSIZE=20 ; DIRSTACKFILE="$HOME/.cache/reg/dirs" ; mkfile "$DIRSTACKFILE" # to make sure have this file
+DIRSTACKSIZE=20 ; DIRSTACKFILE="$HOME/.cache/reg/dirstack" ; mkfile "$DIRSTACKFILE" # to make sure have this file
 if [[ -f $DIRSTACKFILE ]] && [[ $#dirstack -eq 0 ]]; then dirstack=( ${(f)"$(< $DIRSTACKFILE)"} ) ; [[ -d $dirstack[1] ]] && cd $dirstack[1] ; fi
 chpwd() { print -l $PWD ${(u)dirstack} >$DIRSTACKFILE }
 
