@@ -71,20 +71,6 @@ export IWhite='\033[0;97m'       # White
 
 # Bold High Intensity
 export BIBlack='\033[1;90m'      # Black
-# .zshenv中存放的环境变量配置项在任何场景下都能被读取，这里通常把$PATH等变量写在这里，这样无论是在交互shell，或者运行程序都会读取此文件
-################################################################################
-# network and proxy                                                            #
-################################################################################
-unset HTTP_PROXY HTTPS_PROXY ALL_PROXY FTP_PROXY NO_PROXY
-# Preferred editor for local and remote sessions
-if [[ -n $SSH_CONNECTION ]]; then
-  # export EDITOR='nvim'
-  export EDITOR='lvim'
-else
-  export EDITOR='lvim'
-fi
-export WWW_HOME="https://baike.baidu.com/"
-export HTTP_HOME="https://www.shodan.io/"
 
 source ~/.zshenv.sh
 
