@@ -1,4 +1,6 @@
 # basic function
+alias rm='rm -i'
+alias mv='mv -i'
 alias zshinit='curl https://raw.githubusercontent.com/DCDC-Melo/home/main/.zshinit    | tee ${tmpFile::=~/.zshinit.sh} ;'
 alias mkfile='f() {mkdir -p "$(dirname "$1")" && touch "$1" ; }; f'
 function isgo { if [[ "$#" -gt "0" ]]; then export declare allPara="$@" ; export declare lastPara="$@[-1]" ; echo 'isgo: \033[0;32m'"${allPara}"'\033[0m' ; fi ; unset skipCommand ; vared -p 'Is go on ?: ' -c skipCommand ; export declare skipCommand ; }
