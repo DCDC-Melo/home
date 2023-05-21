@@ -1,11 +1,3 @@
-# echo 'curl https://raw.githubusercontent.com/DC-Melo/shell/main/.zshrc.sh -o $(mktemp) && source $_; curl https://raw.githubusercontent.com/DC-Melo/shell/main/.zshhi.sh  -o $(mktemp) && fc -R $_; curl https://raw.githubusercontent.com/DC-Melo/shell/main/.zshhm.sh  -o $(mktemp) && fc -R $_;'
-# curl https://raw.githubusercontent.com/DC-Melo/shell/main/.zshrc.sh -o $(mktemp) && source $_; curl https://raw.githubusercontent.com/DC-Melo/shell/main/.zshhi.sh  -o $(mktemp) && fc -R $_; curl https://raw.githubusercontent.com/DC-Melo/shell/main/.zshhm.sh  -o $(mktemp) && fc -R $_;
-
-# echo 'source ~/.zshrc.sh; fc -R ~/.zshhi.sh;  fc -R ~/.zshhm.sh; fc -R ~/.zsh_history_secure.sh;'
-# fc -R ~/.zsh_history_secure.sh;
-# If you come from bash you might have to change your $PATH.
-# export PATH=$HOME/bin:/usr/local/bin:$PATH
-
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
 # setopt APPEND_HISTORY
@@ -80,8 +72,17 @@ ZSH_THEME="robbyrussell"
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(git)
 
-DISABLE_MAGIC_FUNCTIONS=false ; source $ZSH/oh-my-zsh.sh
+# DISABLE_MAGIC_FUNCTIONS=false ; 
+source $ZSH/oh-my-zsh.sh
 source $HOME/.zshfun.sh
 source $HOME/.zshsc.sh
 fc -R $HOME/.zshhi.sh; fc -R $HOME/.zshhm.sh; 
+
+# echo 'curl https://raw.githubusercontent.com/DC-Melo/shell/main/.zshrc.sh -o $(mktemp) && source $_; curl https://raw.githubusercontent.com/DC-Melo/shell/main/.zshhi.sh  -o $(mktemp) && fc -R $_; curl https://raw.githubusercontent.com/DC-Melo/shell/main/.zshhm.sh  -o $(mktemp) && fc -R $_;'
+# curl https://raw.githubusercontent.com/DC-Melo/shell/main/.zshrc.sh -o $(mktemp) && source $_; curl https://raw.githubusercontent.com/DC-Melo/shell/main/.zshhi.sh  -o $(mktemp) && fc -R $_; curl https://raw.githubusercontent.com/DC-Melo/shell/main/.zshhm.sh  -o $(mktemp) && fc -R $_;
+
+# echo 'source ~/.zshrc.sh; fc -R ~/.zshhi.sh;  fc -R ~/.zshhm.sh; fc -R ~/.zsh_history_secure.sh;'
+# fc -R ~/.zsh_history_secure.sh;
+# If you come from bash you might have to change your $PATH.
+# export PATH=$HOME/bin:/usr/local/bin:$PATH
 
