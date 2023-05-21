@@ -192,3 +192,4 @@ brew install speedtest-cli
 npm install --location=global fast-cli
 brew install iperf
 npm install --global fast-cli
+
