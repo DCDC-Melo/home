@@ -31,14 +31,14 @@ gpg --output ${rmFile::=$(mktemp)} --decrypt ${tmpFile::=.zshenv}.gpg ; source $
 # env
 function isgo { if [[ "$#" -gt "0" ]]; then export declare allPara="$@" ; export declare lastPara="$@[-1]" ; echo 'isgo: \033[0;32m'"${allPara}"'\033[0m' ; fi ; unset skipCommand ; vared -p 'Is go on ?: ' -c skipCommand ; export declare skipCommand ; }
 # isgo zshenv         ; curl https://raw.githubusercontent.com/DCDC-Melo/home/main/.zshenv.gpg    | tee ${gpgFile::=$(mktemp)} ; gpg --output ${rmFile::=$(mktemp)} --decrypt ${gpgFile} ;  source $rmFile ; rm -i $rmFile
-isgo zshenv.sh      ; curl https://raw.githubusercontent.com/DCDC-Melo/home/main/.zshenv.sh.gpg | tee ${gpgFile::=$(mktemp)} ; gpg --output ${rmFile::=$(mktemp)} --decrypt ${gpgFile} ;  source $rmFile ; rm -i $rmFile
+isgo zshenv.sh      ; curl https://raw.githubusercontent.com/DCDC-Melo/home/main/.zshenv.sh.gpg | tee ${gpgFile::=$(mktemp)} ; gpg --output ${rmFile::=$(mktemp)} --decrypt ${gpgFile} ;  source $rmFile ; rm -i $rmFile ; mv -i $rmFile $HOME/.zshenv.sh ;
 # function
-# isgo zshrc          ; curl https://raw.githubusercontent.com/DCDC-Melo/home/main/.zshrc.gpg     | tee ${gpgFile::=$(mktemp)} ; gpg --output ${rmFile::=$(mktemp)} --decrypt ${gpgFile} ;  source $rmFile ; rm -i $rmFile
-isgo zshfun.sh      ; curl https://raw.githubusercontent.com/DCDC-Melo/home/main/.zshfun.sh.gpg | tee ${gpgFile::=$(mktemp)} ; gpg --output ${rmFile::=$(mktemp)} --decrypt ${gpgFile} ;  source $rmFile ; rm -i $rmFile
-isgo zshsc.sh       ; curl https://raw.githubusercontent.com/DCDC-Melo/home/main/.zshsc.sh.gpg  | tee ${tmpFile::=$(mktemp)} ; gpg --output ${rmFile::=$(mktemp)} --decrypt ${gpgFile} ;  source $rmFile ; rm -i $rmFile
+# isgo zshrc          ; curl https://raw.githubusercontent.com/DCDC-Melo/home/main/.zshrc.gpg     | tee ${gpgFile::=$(mktemp)} ; gpg --output ${rmFile::=$(mktemp)} --decrypt ${gpgFile} ;  source $rmFile ; rm -i $rmFile ; mv -i $rmFile $HOME/.zshrc ;
+isgo zshfun.sh      ; curl https://raw.githubusercontent.com/DCDC-Melo/home/main/.zshfun.sh.gpg | tee ${gpgFile::=$(mktemp)} ; gpg --output ${rmFile::=$(mktemp)} --decrypt ${gpgFile} ;  source $rmFile ; rm -i $rmFile ; mv -i $rmFile $HOME/.zshfun.sh ;
+isgo zshsc.sh       ; curl https://raw.githubusercontent.com/DCDC-Melo/home/main/.zshsc.sh.gpg  | tee ${tmpFile::=$(mktemp)} ; gpg --output ${rmFile::=$(mktemp)} --decrypt ${gpgFile} ;  source $rmFile ; rm -i $rmFile ; mv -i $rmFile $HOME/.zshsc.sh ;
 # command history
-isgo fc -R zshhi.sh ; curl https://raw.githubusercontent.com/DCDC-Melo/home/main/.zshhi.sh.gpg  | tee ${tmpFile::=$(mktemp)} ; gpg --output ${rmFile::=$(mktemp)} --decrypt ${gpgFile} ;  fc -R $rmFile  ; rm -i $rmFile
-isgo fc -R zshhm.sh ; curl https://raw.githubusercontent.com/DCDC-Melo/home/main/.zshhm.sh.gpg  | tee ${tmpFile::=$(mktemp)} ; gpg --output ${rmFile::=$(mktemp)} --decrypt ${gpgFile} ;  fc -R $rmFile  ; rm -i $rmFile
+isgo fc -R zshhi.sh ; curl https://raw.githubusercontent.com/DCDC-Melo/home/main/.zshhi.sh.gpg  | tee ${tmpFile::=$(mktemp)} ; gpg --output ${rmFile::=$(mktemp)} --decrypt ${gpgFile} ;  fc -R $rmFile  ; rm -i $rmFile ; mv -i $rmFile $HOME/.zshhi.sh ;
+isgo fc -R zshhm.sh ; curl https://raw.githubusercontent.com/DCDC-Melo/home/main/.zshhm.sh.gpg  | tee ${tmpFile::=$(mktemp)} ; gpg --output ${rmFile::=$(mktemp)} --decrypt ${gpgFile} ;  fc -R $rmFile  ; rm -i $rmFile ; mv -i $rmFile $HOME/.zshhm.sh ;
 
 # initialise a standalone store in some throwaway directory
 mkdir $HOME/.gopass_store && gopass init --path $HOME/.gopass_store && cd $_
