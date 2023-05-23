@@ -1,6 +1,12 @@
+curl https://raw.githubusercontent.com/DCDC-Melo/log/main/natapp.ip
+curl https://raw.githubusercontent.com/DCDC-Melo/home/main/.zshinit
+
+
+# config and download key
 chsh -s /bin/zsh
 sudo mkdir -p /opt/4T && sudo chown -R $(whoami) $_ ;
 git clone git@github.com:DCDC-Melo/home.git . ${cm#get home local}
+
 
 # import private key
 curl https://raw.githubusercontent.com/DCDC-Melo/home/main/.dc.gpg.private.key | tee ${tmpFile::=$(mktemp)} ; gpg --import $tmpFile ;
@@ -8,26 +14,17 @@ curl https://raw.githubusercontent.com/DCDC-Melo/home/main/.dc.gpg.private.key |
 # curl https://raw.githubusercontent.com/DCDC-Melo/home/main/.dc.public.key.gpg  | tee ${tmpFile::=$(mktemp)} ; gpg --import $tmpFile ;
 # gpg --import private.key
 # gpg --pinentry-mode loopback --import private.key ;
-
 # export key
 gpg --export-secret-keys --armor C24754849B10AB07 > .dc.gpg.private.key
-
 # start gpg
-gpgconf --kill gpg-agent ; systemctl --user stop gpg-agent ; systemctl --user start gpg-agent ;
-systemctl --user status gpg-agent
-systemctl --user stop   gpg-agent
-systemctl --user start  gpg-agent
-gpgconf --kill gpg-agent
-gpg --list-keys
-gpg --list-secret-keys
-gpg --list-public-keys
-
+systemctl --user status gpg-agent ; gpgconf --kill gpg-agent ; systemctl --user stop gpg-agent ; systemctl --user start gpg-agent ;
+gpg --list-keys ; gpg --list-secret-keys ; gpg --list-public-keys ;
 # encrypt
 gpg --recipient C24754849B10AB07 --armor --output ${tmpFile::=~/.zshsc.sh}.gpg  --encrypt ${tmpFile} ;
-
 # decrypt
 gpg --output ${tmpFile::=.zshenv}  --decrypt ${tmpFile}.gpg ;
 gpg --output ${rmFile::=$(mktemp)} --decrypt ${tmpFile::=.zshenv}.gpg ; source ${rmFile} ; rm -i $rmFile
+
 
 # env
 function isgo { if [[ "$#" -gt "0" ]]; then export declare allPara="$@" ; export declare lastPara="$@[-1]" ; echo 'isgo: \033[0;32m'"${allPara}"'\033[0m' ; fi ; unset skipCommand ; vared -p 'Is go on ?: ' -c skipCommand ; export declare skipCommand ; }
@@ -41,6 +38,7 @@ isgo zshsc.sh       ; curl https://raw.githubusercontent.com/DCDC-Melo/home/main
 isgo fc -R zshhi.sh ; curl https://raw.githubusercontent.com/DCDC-Melo/home/main/.zshhi.sh.gpg  | tee ${gpgFile::=$(mktemp)} ; gpg --output ${rmFile::=$(mktemp)} --decrypt ${gpgFile} ;  fc -R $rmFile  ; rm -i $rmFile ; mv -i $rmFile $HOME/.zshhi.sh ;
 isgo fc -R zshhm.sh ; curl https://raw.githubusercontent.com/DCDC-Melo/home/main/.zshhm.sh.gpg  | tee ${gpgFile::=$(mktemp)} ; gpg --output ${rmFile::=$(mktemp)} --decrypt ${gpgFile} ;  fc -R $rmFile  ; rm -i $rmFile ; mv -i $rmFile $HOME/.zshhm.sh ;
 
+
 # initialise a standalone store in some throwaway directory
 mkdir $HOME/.gopass_store && gopass init --path $HOME/.gopass_store && cd $_
 # initialise a git repository, add remote origin and push
@@ -52,3 +50,7 @@ gopass clone git@github.com:name/repo.git store-name
 gopass mounts
 echo "secret-value" | gopass insert store-name/first-secret
 gopass list store-name
+
+
+ssh dc@server.natappfree.cc -p 42818 'ls -alh /opt/4T'
+ssh-copy-id -i ~/.ssh/bb_id_rsa.pub dc@192.168.10.68
