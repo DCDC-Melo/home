@@ -193,3 +193,7 @@ npm install --location=global fast-cli
 brew install iperf
 npm install --global fast-cli
 
+brew install k6
+brew install ripgrep
+brew install imgcat
+npm install -g poker-odds

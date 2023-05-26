@@ -10,7 +10,6 @@ chsh -s /bin/zsh
 sudo mkdir -p /opt/4T && sudo chown -R $(whoami) $_ ;
 git clone git@github.com:DCDC-Melo/home.git . ${cm#get home local}
 
-
 # import private key
 curl https://raw.githubusercontent.com/DCDC-Melo/home/main/.dc.gpg.private.key | tee ${tmpFile::=$(mktemp)} ; gpg --import $tmpFile ;
 # curl https://raw.githubusercontent.com/DCDC-Melo/home/main/.dc.private.key.gpg | tee ${tmpFile::=$(mktemp)} ; gpg --import $tmpFile ;
@@ -23,7 +22,11 @@ gpg --export-secret-keys --armor C24754849B10AB07 > .dc.gpg.private.key
 systemctl --user status gpg-agent ; gpgconf --kill gpg-agent ; systemctl --user stop gpg-agent ; systemctl --user start gpg-agent ;
 gpg --list-keys ; gpg --list-secret-keys ; gpg --list-public-keys ;
 # encrypt
+gpg --recipient C24754849B10AB07 --armor --output ${tmpFile::=~/.zshenv.sh}.gpg  --encrypt ${tmpFile} ;
+gpg --recipient C24754849B10AB07 --armor --output ${tmpFile::=~/.zshfun.sh}.gpg  --encrypt ${tmpFile} ;
 gpg --recipient C24754849B10AB07 --armor --output ${tmpFile::=~/.zshsc.sh}.gpg  --encrypt ${tmpFile} ;
+gpg --recipient C24754849B10AB07 --armor --output ${tmpFile::=~/.zshhi.sh}.gpg  --encrypt ${tmpFile} ;
+gpg --recipient C24754849B10AB07 --armor --output ${tmpFile::=~/.zshhm.sh}.gpg  --encrypt ${tmpFile} ;
 # decrypt
 gpg --output ${tmpFile::=.zshenv}  --decrypt ${tmpFile}.gpg ;
 gpg --output ${rmFile::=$(mktemp)} --decrypt ${tmpFile::=.zshenv}.gpg ; source ${rmFile} ; rm -i $rmFile

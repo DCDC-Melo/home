@@ -1,14 +1,14 @@
-abbr ⒈)   ①
-abbr ⒉)   ②
-abbr ⒊)   ③
-abbr ⒋)   ④
-abbr ⒌)   ⑤
-abbr ⒍)   ⑥
-abbr ⒎)   ⑦
-abbr ⒏)   ⑧
-abbr ⒐)   ⑨
-abbr ﬂ1   ⚐
-abbr ﬂ2   ⚑
+" abbr ⒈)   ①
+" abbr ⒉)   ②
+" abbr ⒊)   ③
+" abbr ⒋)   ④
+" abbr ⒌)   ⑤
+" abbr ⒍)   ⑥
+" abbr ⒎)   ⑦
+" abbr ⒏)   ⑧
+" abbr ⒐)   ⑨
+" abbr ﬂ1   ⚐
+" abbr ﬂ2   ⚑
 
 
 
@@ -60,7 +60,7 @@ cabbrev etemp :let $dtime=trim(system('date +%Y%m%d_%H%M%S')) <Bar> edit `mktemp
 cabbrev etmp  :edit /tmp/`uuidgen`.md
 cabbrev subi :let SI=MakeSearchIndex(0) <Bar> s#[^\|]\+\|#\=SI().'\|'#gc
 " fresh screen
-cabbrev fsc NvimTreeOpen <Bar> NvimTreeRefresh <Bar> redraw
+cabbrev fresh NvimTreeOpen <Bar> NvimTreeRefresh <Bar> redraw
 " uniq history
 cabbrev unqhis  :%s/\\$\n/\\§/g <Bar> %!sort -t ";" -k2 <Bar> %g/^: \d\{10}:\d;\(.*\)\s*\n: \d\{10}:\d;\1\s*\n/d <Bar> %g/§/m$ <Bar> %s/\\§/\\\r/g
 "sum by column
@@ -279,6 +279,7 @@ command!   -nargs=* OpenDrawio  : call OpenDrawio(<f-args>)
 :command!  -range=% -nargs=* ConvertDate <line1>,<line2> :call ConvertDate(<f-args>)
 
 
+command!   -nargs=1 Mktouch    execute('silent! !mkdir -p "$(dirname "<args>")"') <Bar> execute('silent! !touch "<args>"') <Bar>  e <args> <Bar> redraw!
 
 command!            Snip2Json               : call Snip2Json()
 command!   -nargs=* SurroundString          : call SurroundString(<f-args>)
