@@ -197,3 +197,21 @@ brew install k6
 brew install ripgrep
 brew install imgcat
 npm install -g poker-odds
+aid=-1; tdGetApp2List $pjuuid;  isContinue $(adbSerialNo $aid ) "$apkList[1]" ; adb -s $(adbSerialNo $aid ) install -r -d $HOME/Documents/apk/$_ ; ${cm#adbinstall } 
+aid=-1; adb -s $(adbSerialNo $aid ) install -r -d $HOME/3R/ICBCAsia-7.0.6.0.apk ; ${cm#adbinstall } 
+aid=-1; adb -s $(adbSerialNo $aid ) install -r -d $HOME/3R/BNApp.apk  ; ${cm#adbinstall } 
+aid=-1; adb -s $(adbSerialNo $aid ) install -r -d ~/3R/Singpass_18.1.0_Apkpure.apk ; ${cm#adbinstall } 
+aid=-1; tdGetApp2List $pjuuid;  isContinue $(adbSerialNo $aid ) "$apkList[1]" ; adb -s $(adbSerialNo $aid ) install -r -d $DOWNLOADS_APK/$_ ; ${cm#adbinstall } 
+aid=-1; tdGetApp2List $pjuuid;  isContinue $(adbSerialNo $aid ) "$apkList[1]" ; adb -s $(adbSerialNo $aid ) install -r -d $DOWNLOADS_APK/$_ ; ${cm#adbinstall } 
+adb -s $(adbSerialNo ) install -r -d 1.apk ; ${cm#adbinstall } 
+mvn clean install -Dmaven.test.skip=true
+adb -s $(adbSerialNo ) install -r -d /tmp/1.apk ; ${cm# adb install } 
+brew install enca
+python3 -m pip install --user --upgrade pynvim
+python3 -m pip install texttable
+python3 -m pip install ruamel.yaml
+python3 -m pip install ruamel_yaml==0.11.14
+brew install yq
+brew install mplayer
+brew install boxes
+python3 -m pip install webssh

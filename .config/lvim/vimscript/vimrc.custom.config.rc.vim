@@ -1,15 +1,3 @@
-" abbr ⒈)   ①
-" abbr ⒉)   ②
-" abbr ⒊)   ③
-" abbr ⒋)   ④
-" abbr ⒌)   ⑤
-" abbr ⒍)   ⑥
-" abbr ⒎)   ⑦
-" abbr ⒏)   ⑧
-" abbr ⒐)   ⑨
-" abbr ﬂ1   ⚐
-" abbr ﬂ2   ⚑
-
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -20,6 +8,8 @@ inoremap <C-h> <Left>
 " inoremap <C-k> <Up>
 inoremap <C-j> <Down>
 vnoremap <C-t> :Tabularize/\|<CR>
+cmap     <C-p> <Up>
+cmap     <C-n> <Down>
 
 " inoremap dts <c-r>=strftime('%s')<CR>
 
@@ -28,36 +18,59 @@ vnoremap <C-t> :Tabularize/\|<CR>
 " basic alise 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
+
+" sequence from to 
+cabbrev seq   r !seq 1 2 100
 " visual substiture
-cabbrev dt    put=strftime(\"%s\") 
+cabbrev echohis   echo &g:history
+" add timestamp
+cabbrev timestamp put=strftime(\"%s\") 
+" visual substitute
 cabbrev vsub  s/\%V\//_/g 
+" visual delete blank
 cabbrev vdb  s/\%V //g 
 cabbrev snip  %s/\\/\\\\/g <Bar> %s/\//\\\//g <Bar> %s/"/\\"/g <Bar> %s/\$/\\\\\$/g <Bar> %s/^/"/ <Bar> %s/$/",/g <Bar> :noh
+" delete not character
 cabbrev dnc  s/[^[:print:]]//g  <Bar> :noh
+" delete colour 
 cabbrev dcl  %s/\e\[[0-9;]*m//g  <Bar> :noh
 cabbrev dcl  %s/\%x1b\[[0-9;]*m//g  <Bar> :noh
+" delete decimal point after 2
 cabbrev dcm2  s/\(\.\d\d\)\d\+/\1/g  <Bar> :noh
+" get browser link
 cabbrev gsal   r! osascript /opt/4T/script/browserGetTabLink.scpt 'safari' 
 cabbrev gchl   r! osascript /opt/4T/script/browserGetTabLink.scpt 'Google Chrome'
 cabbrev gcal   r! osascript /opt/4T/script/browserGetTabLink.scpt 'Google Chrome Canary'
+" add end slash
 cabbrev aes  s/$/ \\/  <Bar> :noh
+" add begin end |
 cabbrev aael s/^\\|$/\|/g  <Bar> :noh
+" add begin |
 cabbrev aal  s/^/\|/g  <Bar> :noh
+" add end |
 cabbrev ael  s/$/\|/g  <Bar> :noh
+" add begin dash
 cabbrev aad  s/^\s*/\0- /  <Bar> :noh
 
 cabbrev avq  s/^\\|$/"/g  <Bar> :noh
 cabbrev avs  s/\(\S.*\)$\n\(\s*\S\)/\1 \\\r\2/g  <Bar> :noh
 cabbrev dvs  s/ \\$//g  <Bar> :noh
+" global pattern write to file
 cabbrev gsv  g/^BEGIN:VCARD/,/^END:VCARD/write! ~/.contacts/friends/`uuidgen`.vcf 
 
+" delete space
 cabbrev dsp  s/ //g  <Bar> :noh
+
 cabbrev t2t  '<,'> s/[:：]/\|/e <Bar> '<,'> s/^\\|$/\|/g  <Bar> :noh
-" substitute by index
+" source vimrc
 cabbrev sou :source ~/.config/lvim/vimscript/vimrc.custom.config.rc.vim 
+" insert date time
 cabbrev dtime :let $dtime=trim(system('date +%Y%m%d_%H%M%S'))
+" edit temp file
 cabbrev etemp :let $dtime=trim(system('date +%Y%m%d_%H%M%S')) <Bar> edit `mktemp $TMPDIR/TMP_$dtime.md`
+" edit temp file
 cabbrev etmp  :edit /tmp/`uuidgen`.md
+" substitute with index
 cabbrev subi :let SI=MakeSearchIndex(0) <Bar> s#[^\|]\+\|#\=SI().'\|'#gc
 " fresh screen
 cabbrev fresh NvimTreeOpen <Bar> NvimTreeRefresh <Bar> redraw
@@ -67,15 +80,20 @@ cabbrev unqhis  :%s/\\$\n/\\§/g <Bar> %!sort -t ";" -k2 <Bar> %g/^: \d\{10}:\d;
 cabbrev sum   %!awk -F '\|' '{print; x+=$2;y+=$3;z+=$4}; END {print("sum:",x,y,z)}'
 " yaml,json,sql,markdown,html,sh,py,java
 cabbrev sft set filetype=json
+" set all space
 cabbrev sve set virtualedit=all
-
+" substitute with vitural mode
 cabbrev subv %s/\%Vold/NEW/g
 " This sorted by the second column (-k2), treats the text as a number (n) and then sorts in reverse (r), which results in.
+" sort by
 cabbrev sortby   %!sort -t '\|' -k2nr 
+" uniq by
 cabbrev uniqby   %! sort -u -t '\|' -k 1,1 -k 2,2
 cabbrev cross  let @q = '10jD10ko<C-v><Esc>p0j' <Bar> norm 10@q
-cabbrev macro  let @q = '10jD10ko<C-v><Esc>p0j' <Bar> norm 10@q 
+cabbrev inter  let @q = '10jD10ko<C-v><Esc>p0j' <Bar> norm 10@q 
+" set nowrap
 cabbrev init  :set nowrap <Bar> set list lcs=trail:·,tab:»· <Bar> set noexpandtab!
+
 cabbrev svar  %s/ tdate /\=' ' . trim(system('gdate +"%H:%M %Y-%m-%d"')).' '/gIe <Bar> %s/ date /\=' ' . trim(system('gdate +"%d-%b-%Y"')).' '/gI
 cabbrev s2j  %s#\\#\\\\#ge <Bar> %s#"#\\"#ge <Bar> %s#\$#\\\\\$#ge <Bar> %s#^#"#ge <Bar> %s#$#",#ge
 cabbrev sjq  %s/[ \t]\([A-Za-z_].*\):/"\1":/
@@ -85,7 +103,10 @@ cabbrev s2t  %s/^\(#*\)# /\=repeat("\t", len(submatch(1)))/g
 cabbrev schar   call append(line('.'), 'ⅠⅡⅢⅣⅤⅥⅦⅧⅨⅩ①②③④⑤⑥⑦⑧⑨⑩⑪⑫⑬⑭⑮⑯⑰⑱⑲⑳⑴⑵⑶⑷⑸⑹⑺⑻⑼⑽⑾⑿⒀⒁⒂⒃⒄⒅⒆⒇←↑→↓↔↕⇐⇒⇔∀∂∃∅∆∇∈∋∏∑−∓∗∘∙√∝┚┛├┝┠┣┤┥┨┫┬┯┰┳┴┷┸┻┼┿╂╋╱╲▀▄█▌▐░▒▓■□▢▣▤▥▦▧▨▩▪▬▭▲△▶▷▼▽◀◁◆◇◊○◎●◐◑◘◙◢◣★☆☜☞☺☻☼♀♂♠♡♢♣♩♪♫♭♮♯✓✗✠　〄〇')
 cabbrev tl2en   call append(line('.'), trim(system('trans -b :en "'. getline('.').'"')))
 cabbrev tl2zh   call append(line('.'), trim(system('trans -b :zh "'. getline('.').'"')))
+cabbrev zh2en   %s/trans(\(.\{-}\))/\='str2var('.trim(system('trans -no-warn -b :en "'. submatch(1).'"')).')'/gc
+cabbrev str2var   %s/str2var(\(.\{-}\))/\=Str2Var(submatch(1))/gc
 cabbrev ASC2Hex call append(line('.'), char2nr(getline('.')))
+" change language
 cabbrev lgcn  execute(':lang zh_CN.UTF-8')
 cabbrev lgen  execute(':lang en_US.UTF-8')
 " copy yank
@@ -146,12 +167,19 @@ cabbrev g2e  g/abc/normal! hgcc                                                 
 cabbrev fw   /\
 " delete
 " 'a,'b g/^\s\+\.\(test_case_\)\@!/co$
+" delete blank line
 cabbrev dbl   g/^[\s\t ]*$/d                                                              " delete blank line
+" delete blank space
 cabbrev dbs   s/[\s\t ]*//g   <Bar> :noh  " delete blank space
+" delete begin blank
 cabbrev dbb   s/^\s*//g;s/\s*$//g                                                        " delete blank begin
+" delete not A
 cabbrev dnA   g!/A/d                                                                     " delete not A
+" delete not A or B
 cabbrev dnAB  v/\(A\|B\)/                                                                " delete not A and B
+" delete multiple line
 cabbrev dml   g/SPECIAL/.,.+3d                                                           " go pattern and delete next 3 line
+" delete 
 cabbrev dbc   %s/([^)]*)//g                                                              " delete in ()
 cabbrev ddu   %s/^\(.*\)\s*\n\1\s*$//g                                                     " delete duplicate duplicate field:cat file  uniq -f 1
 cabbrev unq   %g/^\(.*\)\s*\n\1\s*$/d                                                     " delete duplicate duplicate field:cat file  uniq -f 1
@@ -170,8 +198,8 @@ cabbrev c2m  :g/[^\|]$/norm J   " csv to md format
 cabbrev tab  Tabularize/\|
 " cabbrev tab  Tabularize/^-\+\D\\|\s-\+\D\\|`\\|\\\\|&\+/l1r0                        
 "tab with groups of spaces         
-cabbrev tabblank Tabularize /\S\(' . split(&commentstring, '%s')[0] . '.*\)\@<!\zs\ /l0<CR>
-cabbrev tabspace1  Tabularize /\s\+\zs\s/l0c0<CR>
+cabbrev tabspace  Tabularize /\S\(' . split(&commentstring, '%s')[0] . '.*\)\@<!\zs\ /l0<CR>
+cabbrev tabblank  Tabularize /\s\+\zs\s/l0c0<CR>
 cabbrev tabgroup  Tabularize/\( "\)/l0
 cabbrev tabsharp  Tabularize/\(#\+\)
 "tab right no space left no space  
@@ -238,16 +266,19 @@ cabbrev mbc    s@^[\#\*\.+\-\_> 0-9]*\(\S\)@\[\] \1@g
 " cabbrev mh4     echo getline("'<") 最前行 getpos("'<")
 
 
-cabbrev n2f    e %:h/readme.md
+" new local file
+cabbrev nlf    e %:p:h/readme.md
+" set line number
 cabbrev snnum    set nornu  \|set nonu
 cabbrev snum    set nu  \|set rnu
+" set wrap
 cabbrev snwrap    set nowrap
 cabbrev swrap    set nowrap
+" set show space simble
 cabbrev snlist    set nolist
 cabbrev slist    set list
 
 cabbrev smh    /#.*#\s*$
-
 cabbrev ldn    s#^\s*\d*\.\?\s*#1. #g <Bar> :noh
 cabbrev lds    s#^\(\s*\d\+\)\s\+\.#\1\.#g <Bar> :noh
 
@@ -257,26 +288,27 @@ cabbrev lds    s#^\(\s*\d\+\)\s\+\.#\1\.#g <Bar> :noh
 
 
 com -bar W exe 'w !sudo tee >/dev/null %:p:S' |setl nomod
-command! WQ mksession! ~/Session.vim | wqall
-" command!   W :execute ':silent w !sudo tee % > /dev/null' | :edit!
-" " command!   WQA :execute ':silent write! $HOME/.cache/reg/fileb' <Bar> :execute ':silent write! >> $HOME/.cache/reg/fileB' <Bar> :wqa
-command!   WQA :execute ':silent write! $HOME/.cache/reg/fileb' <Bar> :call writefile(getline(1,'$'), $HOME.'/.cache/reg/fileba', 'a')  <Bar> :wqa
-command!   WQB :execute ':silent write! $HOME/.cache/reg/fileb' <Bar> :call writefile(getline(1,'$'), $HOME.'/.cache/reg/fileba', 'a')  <Bar> :execute ':g/^\s*#/m$' <Bar> :wqa
+cabbrev  WQA   execute 'mksession! $HOME/.cache/reg/session.' . fnamemodify(getcwd(), ':t') . '.vim <Bar> wqa'
+cabbrev  SS   execute 'mksession! $HOME/.cache/reg/session.' . fnamemodify(getcwd(), ':t') . '.vim' 
+command!   SE :execute ':silent w !sudo tee % > /dev/null' | :edit!
+" command!   WQA :execute ':silent write! $HOME/.cache/reg/fileb' <Bar> :execute ':silent write! >> $HOME/.cache/reg/fileB' <Bar> :wqa
+" command!   WQA :execute ':silent write! $HOME/.cache/reg/fileb' <Bar> :call writefile(getline(1,'$'), $HOME.'/.cache/reg/fileba', 'a')  <Bar> :wqa
+" command!   WQB :execute ':silent write! $HOME/.cache/reg/fileb' <Bar> :call writefile(getline(1,'$'), $HOME.'/.cache/reg/fileba', 'a')  <Bar> :execute ':g/^\s*#/m$' <Bar> :wqa
 " command!   WQB :execute ':silent write! $HOME/.cache/reg/fileb' <Bar> :call writefile(getline(1,'$'), $HOME.'/.cache/reg/fileba', 'a')  <Bar> :execute ':g/^\s*#/d' <Bar> :execute ':g/^/norm -J' <Bar> :wqa
-command!   SC  :execute '%s/\s-/\r-/ge'
+" command!   SC  :execute '%s/\s-/\r-/ge'
 " command!   -nargs=* TranslateCurrentLine : call TranslateCurrentLine(<f-args>)
 
-command! -range FormatJson <line1>,<line2>!xargs -0 -I {} node -e 'console.log(JSON.stringify({}, null, 2));'
-command!   -nargs=* LoadImage2Markdown      : call LoadImage2Markdown(<f-args>)
-command!   -nargs=* CopyLinkFile2clipboard  : call CopyLinkFile2clipboard(<f-args>)
-command!   -nargs=* ConvMarkdown2clipboard  : call ConvMarkdown2clipboard(<f-args>)
-command!   -nargs=* GenMarkdownPlantuml  : call GenMarkdownPlantuml(<f-args>)
-command!   -nargs=* OpenDrawio  : call OpenDrawio(<f-args>)
-:command!  -range=% -nargs=* SumColumnEval <line1>,<line2> :call SumColumnEval(<f-args>)
-:command!  -range=% -nargs=* SumSplitBill <line1>,<line2> :call SumSplitBill(<f-args>)
-:command!  -range=% -nargs=* SplitBill <line1>,<line2> :call SplitBill(<f-args>)
-:command!  -range=% -nargs=* Space2MarkdownTable <line1>,<line2> :call Space2MarkdownTable(<f-args>)
-:command!  -range=% -nargs=* ConvertDate <line1>,<line2> :call ConvertDate(<f-args>)
+:command!   -range FormatJson <line1>,<line2>!xargs -0 -I {} node -e 'console.log(JSON.stringify({}, null, 2));'
+:command!   -nargs=* LoadImage2Markdown      : call LoadImage2Markdown(<f-args>)
+:command!   -nargs=* CopyLinkFile2clipboard  : call CopyLinkFile2clipboard(<f-args>)
+:command!   -nargs=* ConvMarkdown2clipboard  : call ConvMarkdown2clipboard(<f-args>)
+:command!   -nargs=* GenMarkdownPlantuml  : call GenMarkdownPlantuml(<f-args>)
+:command!   -nargs=* OpenDrawio  : call OpenDrawio(<f-args>)
+:command!   -range=% -nargs=* SumColumnEval <line1>,<line2> :call SumColumnEval(<f-args>)
+:command!   -range=% -nargs=* SumSplitBill <line1>,<line2> :call SumSplitBill(<f-args>)
+:command!   -range=% -nargs=* SplitBill <line1>,<line2> :call SplitBill(<f-args>)
+:command!   -range=% -nargs=* Space2MarkdownTable <line1>,<line2> :call Space2MarkdownTable(<f-args>)
+:command!   -range=% -nargs=* ConvertDate <line1>,<line2> :call ConvertDate(<f-args>)
 
 
 command!   -nargs=1 Mktouch    execute('silent! !mkdir -p "$(dirname "<args>")"') <Bar> execute('silent! !touch "<args>"') <Bar>  e <args> <Bar> redraw!
@@ -665,6 +697,7 @@ command!   -nargs=* SumVis             : call SumVis(<f-args>)
 " cabbrev m2b    g/SYNTAX/.,/DESCRIPTION/-1 move /PARAMETERS/-1                                             " move block
 " cabbrev mobo   g/Pattern/exec "1m."                                                            " sort
 " cabbrev gpe    g/pat/+1.,/pat/-1 co$
+" let @a=''|g/startpattern/.+1,/stoppattern/-1 delete A
 " cabbrev m2l    g/name.*\n\v^((name)@!.)*$/j                                                               " connect not end with name
 
 " cabbrev msg    messages
@@ -675,7 +708,7 @@ command!   -nargs=* SumVis             : call SumVis(<f-args>)
 " cabbrev tce    s/[^\x00-\xff]\+/\=trim(system('trans -b :en ' . submatch(0)))/                  " translate chinese to english
 " cabbrev e2c    %s/.*/\U&/g                                                                " exchange Up or Lower
 " exchange variable by _ to camel
-cabbrev _2u    %s#_\(\l\)#\u\1#gc " set _a to A
+" cabbrev _2u    %s#_\(\l\)#\u\1#gc " set _a to A
 " cabbrev e2u1   %s/\<./\u&/g	    " Sets first letter of each word to uppercase
 " cabbrev e2u2   %s/\<./\l&/g	    " Sets first letter of each word to lowercase
 " cabbrev e2u3   %s/.*/\u&	        " Sets first letter of each line to uppercase
@@ -861,6 +894,21 @@ command!   UpdateTitle         : call UpdateTitle()
 " command!   -nargs=* MinusNumber :call MinusNumber(<f-args>)
 " command!   -nargs=* MutiplyDot :call MutiplyDot(<f-args>)
 " " cnoremap <silent> <C-G><C-G> <C-R>=string(input("Go to: "))<CR>
+
+function! Str2Var(...)
+    let paras=a:000 "a:000 is an array («List»)
+    let str = trim(l:paras[0])
+    let str = substitute(str, "<br>", "", "g")
+    let str = substitute(str, "'", "", "g")
+    let str = trim(str)
+    let str = substitute(str, "[ 　,./;\\-，。；]", '_', 'g')
+    let str = substitute(str, "__", '_', 'g')
+    let str = substitute(str, "__", '_', 'g')
+    let str = substitute(str, "_*→_*", '__', 'g')
+    let str = substitute(str, "_*⇒_*", '__', 'g')
+    let str = substitute(str, "[A-Z]", '\l&', 'g')
+    return str
+endfunction
 
 " function! VisualSelection()
 "     let [line_start, column_start] = getpos("'<")[1:2]
@@ -3304,7 +3352,7 @@ endfunction
 
 
 function! OpenURL()
-  let s:url = matchstr(getline("."), '[a-z]*:\/\/[^ >,;()|｜]*')
+  let s:url = matchstr(getline("."), '[a-z]*:\/\/[^ >,;()#|｜]*')
   let s:file = matchstr(getline("."), 'docs\/media\/[^ >,;()|｜]*')
   echo s:url
   if s:url != ""
