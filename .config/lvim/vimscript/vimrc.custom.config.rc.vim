@@ -27,6 +27,7 @@ cabbrev echohis   echo &g:history
 cabbrev timestamp put=strftime(\"%s\") 
 " visual substitute
 cabbrev vsub  s/\%V\//_/g 
+cabbrev sbw_  s/\a \a/\=substitute(submatch(0),' ','_','g')/g 
 " visual delete blank
 cabbrev vdb  s/\%V //g 
 cabbrev snip  %s/\\/\\\\/g <Bar> %s/\//\\\//g <Bar> %s/"/\\"/g <Bar> %s/\$/\\\\\$/g <Bar> %s/^/"/ <Bar> %s/$/",/g <Bar> :noh
@@ -115,13 +116,20 @@ cabbrev yyy  call writefile(getreg('"', 1, 1), $HOME."/.cache/reg/filer")  \| ca
 cabbrev sw  :write! $HOME/.cache/reg/fileb \| g/^\s*#/d
 cabbrev y4l  call writefile([getline('.')], $HOME.'/.cache/reg/filel') \| call setreg('+',getline('.')) \| call setreg('l',getline('.'))
 cabbrev y4r  call writefile(getreg('"', 1, 1), $HOME.'/.cache/reg/fileu')                                    
+" yark file path
 cabbrev yfp   call writefile([expand("%:p")],   $HOME."/.cache/reg/filep") <Bar> call system('printf "'. expand("%:p") . '" \|pbcopy \|xsel -i -b ')
+" yark file directory
 cabbrev yfd   call writefile([expand("%:p:h")], $HOME."/.cache/reg/filep") <Bar> call system('printf "'. expand("%:p") . '" \|pbcopy \|xsel -i -b ')
+" yark the path
 cabbrev ypwd  call writefile([getcwd()], $HOME."/.cache/reg/filep")        <Bar> call system('printf "'. getcwd() . '" \|pbcopy')
+" copy to register
 cabbrev y2r  call system('xsel -i -b ', @")                          
+" copy to clipboard
 cabbrev y2x  .write !xsel -i -b   
-cabbrev y2d  .write! $HOME/Desktop/tmp.md
+" cabbrev y2d  .write! $HOME/Desktop/tmp.md
+" yark to tmp
 cabbrev y2t  .write! /tmp/`uuidgen`.md
+" yark to
 cabbrev y2y  .write! $HOME/.cache/reg/filey
 cabbrev y2f   write! $HOME/.cache/reg/filef
 cabbrev y2l  .write! $HOME/.cache/reg/filel
@@ -130,6 +138,7 @@ cabbrev y2i  .write! $HOME/.cache/reg/filei
 cabbrev y2o  .write! $HOME/.cache/reg/fileo
 cabbrev y2s  .write! $HOME/.cache/reg/files
 cabbrev y2c  .write! $HOME/.cache/reg/filec
+" add to 
 cabbrev a2y  write! >> $HOME/.cache/reg/filey
 cabbrev a2f  write! >> $HOME/.cache/reg/filef
 cabbrev a2l  write! >> $HOME/.cache/reg/filel
@@ -154,13 +163,15 @@ cabbrev e4tn :let $newTempFile='/tmp/'.trim(system('date +%Y%m%d_%H%M%S')) \| e 
 cabbrev p4tl :let $lastTempFile='/tmp/'.trim(system('ls -tU /tmp/ \| head -1 \| tail -1 ')) \| r $lastTempFile
 cabbrev e4tl :let $lastTempFile='/tmp/'.trim(system('ls -tU /tmp/ \| head -1 \| tail -1 ')) \| e $lastTempFile
 cabbrev evmd e $HOME/.config/lvim/vimscript/README.md
+" edit new file
 cabbrev enf e %:p:h/fname
-
 " cabbrev p4w  r!sed -n 1,+50p /tmp/www
 cabbrev p4w  PasteFromFile /tmp/www 1 1
+" past from clipboard
 cabbrev p4x  r!xsel -o -b
 " go
 cabbrev w2c  %s/./&/g
+" go and run register
 cabbrev g2a  g/abc/normal! @a                                                           " go and substitute
 cabbrev g2e  g/abc/normal! hgcc                                                         " go and comment
 "find
@@ -182,9 +193,11 @@ cabbrev dml   g/SPECIAL/.,.+3d                                                  
 " delete 
 cabbrev dbc   %s/([^)]*)//g                                                              " delete in ()
 cabbrev ddu   %s/^\(.*\)\s*\n\1\s*$//g                                                     " delete duplicate duplicate field:cat file  uniq -f 1
+" uniq the file
 cabbrev unq   %g/^\(.*\)\s*\n\1\s*$/d                                                     " delete duplicate duplicate field:cat file  uniq -f 1
 cabbrev unq1  %s/^\(.*\)\(\n\1\)\+$/\1/                                                 " delete duplicate
 cabbrev unq2  %s/^\(.*\)\n\1$/\1/                                                        " Delete lines which appears twice
+" delete html tab
 cabbrev dht   %s#&nbsp;# #ge \| %s#</li>#\r</li>#ge \| %s#\(</li>\)\\|\(</div>\)#\0\r#ge \| %s#<[^>]\+>##ge \| %s#&lt;#<#ge \| %s#&gt;#>#ge \| %s#&nbsp;# #ge                             " Delete HTML tags but keeps text
 
 " format
@@ -198,7 +211,7 @@ cabbrev c2m  :g/[^\|]$/norm J   " csv to md format
 cabbrev tab  Tabularize/\|
 " cabbrev tab  Tabularize/^-\+\D\\|\s-\+\D\\|`\\|\\\\|&\+/l1r0                        
 "tab with groups of spaces         
-cabbrev tabspace  Tabularize /\S\(' . split(&commentstring, '%s')[0] . '.*\)\@<!\zs\ /l0<CR>
+cabbrev tabspaces  Tabularize /\S\(' . split(&commentstring, '%s')[0] . '.*\)\@<!\zs\ /l0<CR>
 cabbrev tabblank  Tabularize /\s\+\zs\s/l0c0<CR>
 cabbrev tabgroup  Tabularize/\( "\)/l0
 cabbrev tabsharp  Tabularize/\(#\+\)
@@ -208,19 +221,29 @@ cabbrev tabnospace  Tabularize/:/l0<CR>
 cabbrev tabfirst  Tabularize /^[^:]*\zs:<CR>
 "tab on the first match            
 cabbrev tabfirst1  Tabularize /^[^@]*\zs@/l1l0<CR>                                      
-
-cabbrev tabfm  Tabularize /.*\zs,/<CR>                                                      "tab on the last match
-cabbrev tabno Tabularize /^\(.\{-}\zs,\)\{2}\zs/l0l1<CR>                                    "align at the  2nd occurence of ','
-cabbrev tabno Tabularize /^\(.\{-}\zs,\)\{2}/l0<CR>                                        "align at the  2nd occurence of ','
-cabbrev tabnrls  Tabularize/^-\+\D\\|\s-\+\D\\|`\\|\\\\|&\+/l1r0<CR>                        "Tabularize
-cabbrev tabnls Tabularize/^-\+\D\\|\s-\+\D\\|`\\|\\\\|&\+/l1r0<CR>                         "Tabularize
-cabbrev tabnrs Tabularize/^-\+\D\\|\s-\+\D\\|`\\|\\\\|&\+/l1r0<CR>                         "Tabularize
-cabbrev tabfl  Tabularize/^-\+\D\\|\s-\+\D\\|`\\|\\\\|&\+/l1r0<CR>                          "Tabularize from last
-cabbrev tabbt  g/[^\|]/+1.,/[^\|]/-1 Tabularize/\|                                      "Tabularize block table
-" buffer
-cabbrev b2s    w!sudo tee %                                                               "  save with root user
-cabbrev c_m    ctrl+v and enter                                                           "  input ^M
-cabbrev bsu    bufdo %s/pattern/replace/gce \| update                                     "  replace buffer
+"tab on the last match                 
+cabbrev tabfm  Tabularize /.*\zs,/<CR>                                       
+"align at the  2nd occurence of ','
+cabbrev tabno Tabularize /^\(.\{-}\zs,\)\{2}\zs/l0l1<CR>                 
+"align at the  2nd occurence of ','
+cabbrev tabno Tabularize /^\(.\{-}\zs,\)\{2}/l0<CR>                                         
+"Tabularize
+cabbrev tabnrls  Tabularize/^-\+\D\\|\s-\+\D\\|`\\|\\\\|&\+/l1r0<CR>                      
+"Tabularize
+cabbrev tabnls Tabularize/^-\+\D\\|\s-\+\D\\|`\\|\\\\|&\+/l1r0<CR>                         
+"Tabularize
+cabbrev tabnrs Tabularize/^-\+\D\\|\s-\+\D\\|`\\|\\\\|&\+/l1r0<CR>                          
+"Tabularize from last
+cabbrev tabfl  Tabularize/^-\+\D\\|\s-\+\D\\|`\\|\\\\|&\+/l1r0<CR>                      
+"Tabularize block table
+cabbrev tabbt  g/[^\|]/+1.,/[^\|]/-1 Tabularize/\|                         
+" buffer                                                                               
+"  save with root user
+cabbrev b2s    w!sudo tee %                                                            
+"  input ^M              
+cabbrev c_m    ctrl+v and enter                                                        
+"  replace buffer        
+cabbrev bsu    bufdo %s/pattern/replace/gce \| update                                     
 cabbrev his    r!echo "history 10" \| bash -i 2>/dev/null \| sed -e 's/\x1b\[.//g'
 " cabbrev mh0    s/^\s*#*\s*\(.\{-}\)\s\+#\+\s*$/\1/g <Bar> :noh
 cabbrev mh0    s/^\s*#*\s*\(.\{-}\)\s*#*\s*$/\1/g <Bar> :noh
@@ -267,7 +290,7 @@ cabbrev mbc    s@^[\#\*\.+\-\_> 0-9]*\(\S\)@\[\] \1@g
 
 
 " new local file
-cabbrev nlf    e %:p:h/readme.md
+cabbrev elf    e %:p:h/readme.md
 " set line number
 cabbrev snnum    set nornu  \|set nonu
 cabbrev snum    set nu  \|set rnu
@@ -278,7 +301,7 @@ cabbrev swrap    set nowrap
 cabbrev snlist    set nolist
 cabbrev slist    set list
 
-cabbrev smh    /#.*#\s*$
+" cabbrev smh    /#.*#\s*$
 cabbrev ldn    s#^\s*\d*\.\?\s*#1. #g <Bar> :noh
 cabbrev lds    s#^\(\s*\d\+\)\s\+\.#\1\.#g <Bar> :noh
 
