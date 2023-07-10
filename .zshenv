@@ -45,7 +45,8 @@ function save_and_accept {
     eol=$'\n' ; buf="${BUFFER//\\/\\\\}"; echo "${buf//$'\n'/\\$eol}" >> $HOME/.zshhmm.sh; echo "\n" >> $HOME/.zshhmm.sh ; 
   elif [[ $BUFFER =~ "wget" ]]; then echo $BUFFER >> $HOME/.zshhw.sh ;
   elif [[ $BUFFER =~ "install" ]]; then echo $BUFFER >> $HOME/.zshins ;
-  else echo $BUFFER >> $HOME/.zshhi.sh ; fi ; 
+  else echo $BUFFER >> $HOME/.zshhi.sh ; 
+  fi ; 
   zle accept-line; 
 }
 

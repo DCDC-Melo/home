@@ -215,3 +215,18 @@ brew install yq
 brew install mplayer
 brew install boxes
 python3 -m pip install webssh
+python3 -m pip install -r ~/.config/python3requirement.txt 
+python3 -m pip install -r ~/.config/python3requirement.txt
+brew install parquet-cli
+python3 -m pip install parquet-tools
+brew install musikcube
+brew install spotify-tui
+npm install wikit -g
+brew uninstall --ignore-dependencies node
+brew uninstall --force node
+sudo port install tuir 
+python3 -m pip install tuir
+npm install terminal-stocks -g
+brew install achannarasappa/tap/ticker
+npm install -g coinmon
+brew install libiconv

@@ -27,6 +27,10 @@ cabbrev echohis   echo &g:history
 cabbrev timestamp put=strftime(\"%s\") 
 " visual substitute
 cabbrev vsub  s/\%V\//_/g 
+" visual calculate expression
+cabbrev vcal  s/\%V.*/\=eval(submatch(0))/
+cabbrev vsum  s/\%V.*/\=eval(submatch(0))/
+" substute between words with _
 cabbrev sbw_  s/\a \a/\=substitute(submatch(0),' ','_','g')/g 
 " visual delete blank
 cabbrev vdb  s/\%V //g 
